@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 @ContextConfiguration(locations = {"classpath*:spring/applicationContext*.xml"})
 public class SSMTest {
 
-	
+	//fuckfuckfuck
 	@Resource
 	private SysUserService sysUserService;
 
