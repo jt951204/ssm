@@ -6,6 +6,8 @@ http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
     
     <!--上面的xsd最好和当前使用的Spring版本号一致,如果换了Spring版本,这个最好也跟着改-->
 
+    <!-- 引入配置文件 -->
+
     <!--
     使用dbcp连接方式,需要导入commons-dbcp的架包(版本:1.2.2)
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
