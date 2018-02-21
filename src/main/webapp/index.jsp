@@ -19,11 +19,14 @@
 
 <br>
 
-<a href="/sysUserController/showUserToJspById/1" target="_blank">查询用户信息并跳转到一个JSP页面</a>
+<%--<a href="/sysUserController/showUserToJspById/1" target="_blank">查询用户信息并跳转到一个JSP页面</a>--%>
 
-<br>
+<%--<br>--%>
 
-<a href="/sysUserController/showUserToJSONById/1" target="_blank">查询用户信息并直接输出JSON数据</a>
+<%--<a href="/sysUserController/showUserToJSONById/1" target="_blank">查询用户信息并直接输出JSON数据</a>--%>
+
+<jsp:forward page="/main"/>
+
 
 </body>
 </html>
