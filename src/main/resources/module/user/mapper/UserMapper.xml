@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youmeek.ssm.module.user.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.youmeek.ssm.module.user.pojo.User">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="salt" property="salt" jdbcType="BOOLEAN" />
+        <result column="locked" property="locked" jdbcType="BOOLEAN"/>
+    </resultMap>
+    <!--public User createUser(User user);-->
+    <insert id="createUser" useGeneratedKeys="true" keyProperty="id" parameterType="com.youmeek.ssm.module.user.pojo.User">
+        insert into sys_users(id,username,password,salt,locked)
+        VALUES (#{id},#{username},#{password},#{salt},#{locked})
+    </insert>
+    <!--public void updateUser(User user);-->
+    <update id="updateUser" parameterType="com.youmeek.ssm.module.user.pojo.User">
+        update sys_users
+        SET username=#{username},password=#{password},salt=#{salt},locked=#{locked} where id=#{id}
+    </update>
+    <!--public void deleteUser(Long userId);-->
+    <delete id="deleteUser">
+        DELETE from sys_users
+        where id=#{userId}
+    </delete>
+    <!--public void correlationRoles(Long userId, Long... roleIds);-->
+    <insert id="correlationRole">
+        insert into sys_users_roles(user_id,role_id)
+        VALUES (#{0},#{1})
+    </insert>
+    <!--public void uncorrelationRoles(Long userId, Long... roleIds);-->
+    <delete id="uncorrelationRole">
+        DELETE from sys_users_roles
+        where user_id=#{0} and role_id=#{1}
+    </delete>
+    <!--User findOne(Long userId);-->
+    <select id="findOne" resultMap="BaseResultMap">
+        SELECT * from sys_users
+        where id=#{userId}
+    </select>
+
+    <!--User findByUsername(String username);-->
+    <select id="findByUsername" resultMap="BaseResultMap">
+        SELECT * from sys_users
+        where username=#{username}
+    </select>
+    <!--Set<String> findRoles(String username);-->
+    <select id="findRoles" resultType="String">
+        select role from sys_users u, sys_roles r,sys_users_roles ur
+        where u.username=#{username} and u.id=ur.user_id and r.id=ur.role_id
+    </select>
+    <!--Set<String> findPermissions(String username);-->
+    <select id="findPermissions" resultType="String">
+        select permission from sys_users u, sys_roles r, sys_permissions p, sys_users_roles ur, sys_roles_permissions rp
+        where u.username=#{username} and u.id=ur.user_id and r.id=ur.role_id and r.id=rp.role_id and p.id=rp.permission_id
+    </select>
+</mapper>

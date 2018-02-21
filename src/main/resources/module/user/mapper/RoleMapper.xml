@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youmeek.ssm.module.user.mapper.RoleMapper">
+    <!--public Role createRole(Role role);-->
+    <!--public void deleteRole(Long roleId);-->
+
+    <!--public void correlationPermissions(Long roleId, Long... permissionIds);-->
+    <!--public void uncorrelationPermissions(Long roleId, Long... permissionIds);-->
+
+    <!--public Permission createPermission(Permission permission);-->
+    <insert id="createRole" useGeneratedKeys="true" keyProperty="id" parameterType="com.youmeek.ssm.module.user.pojo.Role">
+        insert into sys_roles (id,role, description, available)
+        values (#{id,jdbcType=BIGINT},#{role,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{available,jdbcType=BOOLEAN})
+    </insert>
+    <!--public void deletePermission(Long permissionId);-->
+    <delete id="deleteRole" parameterType="java.lang.Long">
+        DELETE  from sys_roles
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="correlationPermissions"  >
+        insert into sys_roles_permissions (role_id,permission_id)
+        values (#{0},#{1})
+    </insert>
+
+    <delete id="uncorrelationPermissions">
+        DELETE  from  sys_roles_permissions
+        where role_id = #{0} and permission_id = #{1}
+    </delete>
+</mapper>

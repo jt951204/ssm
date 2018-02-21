@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.youmeek.ssm.module.user.mapper.PermissionMapper">
+    <resultMap id="BaseResultMap" type="com.youmeek.ssm.module.user.pojo.Permission">
+        <id column="id" property="id" jdbcType="BIGINT" />
+        <result column="permission" property="permission" jdbcType="VARCHAR" />
+        <result column="description" property="description" jdbcType="VARCHAR" />
+        <result column="available" property="available" jdbcType="BOOLEAN" />
+    </resultMap>
+
+    <!--public Permission createPermission(Permission permission);-->
+    <insert id="createPermission" useGeneratedKeys="true" keyProperty="id" parameterType="com.youmeek.ssm.module.user.pojo.Permission">
+        insert into sys_permissions (id,permission, description, available)
+        values (#{id,jdbcType=BIGINT},#{permission,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{available,jdbcType=BOOLEAN})
+    </insert>
+    <!--public void deletePermission(Long permissionId);-->
+    <delete id="deletePermission" parameterType="java.lang.Long">
+        DELETE  from sys_permissions
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+</mapper>
